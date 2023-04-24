@@ -1,92 +1,68 @@
-# Avaliação Conhecimento Desenvolvedor
+# Teste para Avaliação de Conhecimento
 
+### Desenvolvedor de Software 
+-----------------------------------------
 
+Para avaliar as habilidades do candidato à vaga de desenvolvedor de software será necessário que o mesmo implemente um mini projeto para **Gerenciamento de Funcionários** com:
+- [x] Serviços que permitam incluir, remover e alterar **COLABORADORES**. Campos: 
+    - Número no cadastro de pessoas físicas (com máscara padrão 000.000.000-00);
+    - Nome;
+    - Data de admissão (com máscara padrão dd/mm/aaaa);
+    - Função exercida;
+    - Remuneração em reais (com máscara padrão 0,00);
+    - Gerente (atenção à relação com **GERENTE**, pois **um** colaborador possui apenas **um** gerente direto.); 
+    - Subordinados (atenção à relação com **SUBORDINADOS**, pois **um** colaborador pode ter **nenhum ou vários** subordinados.)
+- [x] Um serviço que permita pesquisar todos os colaboradores admitidos no ano. Sendo "ano" um parâmetro do serviço.
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+{+ Observe que um GERENTE e um SUBORDINADO são também COLABORADORES! +}
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/repositoriomemory/avaliacao-conhecimento-desenvolvedor.git
-git branch -M main
-git push -uf origin main
+    DESAFIO: O cliente do produto que você está desenvolvendo precisa de um serviço que indique o gerente
+    responsável por responder por problemas entre dois colaboradores. Observe que o serviço criado deve 
+    respeitar a hierarquia e o responsável deve ser o gerente comum mais próximo a ambos os colaboradores.
+
 ```
 
-## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/repositoriomemory/avaliacao-conhecimento-desenvolvedor/-/settings/integrations)
+#### ENTREGA
+-----------------------------------------
 
-## Collaborate with your team
+**O candidato deve criar um fork deste projeto e, ao final, realizar um pull request para o projeto principal.**
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-## Test and Deploy
+Como a principal característica do cargo a ser ocupado é atuar como dev em equipe de desenvolvimento de software, o projeto em questão deverá ser elaborado observando os seguintes critérios:
 
-Use the built-in continuous integration in GitLab.
+- [x] Todas as consultas devem conter recursos de **paginação**.
+- [x] **Linguagem de programação Java utilizando Spring Boot.**
+- [x] Banco de dados **PostgreSQL**.
+- [x] Código **orientado a objetos**.
+- [x] **Código limpo** (Conforme boas práticas do livro Clean Code, do Robert Martin).
+- [x] **Commits pequenos** com descrição do que foi implementado.
+- [x] **Sistema escalonável**. Seu projeto deve ser codificado de forma a permitir alterações e adições de novas *features*.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-***
+Caso o candidato não consiga entregar todos os requisitos, é importante descrever no README do projeto o que foi entregue, os critérios de priorização e se houveram impedimentos.
 
-# Editing this README
+Além disso, o candidato deverá **gravar um vídeo explicativo COM ÁUDIO da solução implementada, duração máxima de 15 (QUINZE) minutos**, mostrando de forma INTERCALADA e CORRELACIONANDO:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- [x] **código-fonte**: principais pontos.
+- [x] **banco de dados**: principais estruturas.
+- [x] **a aplicação em funcionamento**. 
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+{+ Não se esqueça de dedicar um tempo do vídeo para explicar sua solução ao desafio. Você pode investir em representações gráficas, se considerar que facilitará sua explicação. +}
 
-## Name
-Choose a self-explaining name for your project.
+Sugerimos o Camtasia® ou o oCAM como softwares para gravação do vídeo com áudio, formato de exportação **.mp4** e com **áudio**. ATENÇÃO! Usar o formato de compressão sugerido ou outro que gere um arquivo em um tamanho e qualidade de vídeo e áudio razoáveis para download, visualização e entendimento da explicação. 	
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Ao finalizar os trabalhos, o BANCO DE DADOS e o VÍDEO deverão ser compactados e postados no [WeTransfer](https://www.wetransfer.com/) enviando o link para download para a [Memory](rh@memory.com.br). Caso o projeto seja aceito, o candidato será convidado a apresentá-lo nas dependências da empresa.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+>IMPORTANTE: 
+O vídeo com áudio é parte imprescindível da entrega. Caso o candidato envie somente o código-fonte e banco de dados, a prova nem será avaliada. 
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+> DICA: 
+Use esse texto como um checklist! Principalmente os itens destacados como tal, além do desafio. A correção e sua pontuação serão baseadas exatamente na execução dos itens obrigatórios. Atenção também ao **tempo do vídeo, data de entrega** e aos **detalhes do enunciado**, assim como um desenvolvedor tem que ter com as entregas de um projeto e detalhes de especificação. 
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+**Sucesso no teste!** :smile:
