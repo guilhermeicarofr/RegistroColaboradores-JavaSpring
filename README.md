@@ -10,7 +10,7 @@ Para avaliar as habilidades do candidato à vaga de desenvolvedor de software se
     - Data de admissão (com máscara padrão dd/mm/aaaa);
     - Função exercida;
     - Remuneração em reais (com máscara padrão 0,00);
-    - Gerente (atenção à relação com **GERENTE**, pois **um** colaborador possui apenas **um** gerente direto.); 
+    - Gerente (atenção à relação com **GERENTE**, pois **um** colaborador possui apenas **um** gerente direto. Sendo o presidente o último nível da hierarquia, não havendo níveis superiores a este.); 
     - Subordinados (atenção à relação com **SUBORDINADOS**, pois **um** colaborador pode ter **nenhum ou vários** subordinados.)
 - [x] Um serviço que permita pesquisar todos os colaboradores admitidos no ano. Sendo "ano" um parâmetro do serviço.
 
