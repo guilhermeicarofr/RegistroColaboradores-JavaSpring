@@ -53,7 +53,7 @@ Além disso, o candidato deverá **gravar um vídeo explicativo COM ÁUDIO da so
 
 Sugerimos o Camtasia® ou o oCAM como softwares para gravação do vídeo com áudio, formato de exportação **.mp4** e com **áudio**. ATENÇÃO! Usar o formato de compressão sugerido ou outro que gere um arquivo em um tamanho e qualidade de vídeo e áudio razoáveis para download, visualização e entendimento da explicação. 	
 
-Ao finalizar os trabalhos, o BANCO DE DADOS e o VÍDEO deverão ser compactados e postados no [WeTransfer](https://www.wetransfer.com/) enviando o link para download para a [Memory](rh@memory.com.br). Caso o projeto seja aceito, o candidato será convidado a apresentá-lo nas dependências da empresa.
+Ao finalizar os trabalhos, o BANCO DE DADOS e o VÍDEO deverão ser compactados e postados no [WeTransfer](https://www.wetransfer.com/) enviando o link para download para a [Memory](rh@memory.com.br). Caso o projeto seja aceito, o candidato será convidado a apresentá-lo à empresa.
 
 
 >IMPORTANTE: 
