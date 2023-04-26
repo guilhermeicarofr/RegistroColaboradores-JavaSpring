@@ -48,6 +48,7 @@ Além disso, o candidato deverá **gravar um vídeo explicativo COM ÁUDIO da so
 - [x] **código-fonte**: principais pontos.
 - [x] **banco de dados**: principais estruturas.
 - [x] **a aplicação em funcionamento**. 
+- [x] simulação na prática de um **debug de código** (com inspeção de atributos, break points, step into, step over.)
 
 {+ Não se esqueça de dedicar um tempo do vídeo para explicar sua solução ao desafio. Você pode investir em representações gráficas, se considerar que facilitará sua explicação. +}
 
