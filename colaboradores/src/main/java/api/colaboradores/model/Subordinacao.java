@@ -26,6 +26,6 @@ public class Subordinacao {
 
   @Column(nullable = false, unique = true)
   @OneToMany
-  @JoinColumn(name = "gerente", referencedColumnName = "id")
+  @JoinColumn(name = "subordinado", referencedColumnName = "id")
   private int subordinado;
 }
