@@ -1,7 +1,6 @@
 package api.colaboradores.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.colaboradores.dto.ColaboradorDTO;
 import api.colaboradores.model.Colaborador;
+import api.colaboradores.model.ColaboradorComHierarquias;
 import api.colaboradores.service.ColaboradorService;
 import jakarta.validation.Valid;
 
@@ -40,7 +40,7 @@ public class ColaboradorController {
   }
 
   @GetMapping("/{id}")
-  public Optional<Colaborador> getOne(@PathVariable long id) {
+  public ColaboradorComHierarquias getOne(@PathVariable long id) {
     return service.readById(id);
   }
 

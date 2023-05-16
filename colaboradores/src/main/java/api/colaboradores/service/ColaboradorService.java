@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import api.colaboradores.dto.ColaboradorDTO;
 import api.colaboradores.model.Colaborador;
+import api.colaboradores.model.ColaboradorComHierarquias;
 import api.colaboradores.repository.ColaboradorRepository;
 
 @Service
@@ -20,8 +21,10 @@ public class ColaboradorService {
   private SubordinacaoService subordinacaoService;
 
   public void create(ColaboradorDTO dto) {
-    Colaborador colaborador = repository.save(new Colaborador(dto));
+    List<Colaborador> cpfEmUso = repository.findByCpf(dto.cpf());
+    if(cpfEmUso.isEmpty()) throw new Error("CPF em uso");
 
+    Colaborador colaborador = repository.save(new Colaborador(dto));
     if(dto.gerente() != null) subordinacaoService.createRelacaoGerente(colaborador.getId(), dto);
     subordinacaoService.createRelacaoSubordinados(colaborador.getId(), dto);
   }
@@ -30,8 +33,14 @@ public class ColaboradorService {
     return repository.findAllBy(pageable).getContent();
   }
 
-  public Optional<Colaborador> readById(long id) {
-    return repository.findById(id);
+  public ColaboradorComHierarquias readById(long id) {
+    Optional<Colaborador> colaborador = repository.findById(id);
+    if(!colaborador.isPresent()) throw new Error("Colaborador não encontrado");
+
+    Optional<Colaborador> gerente = repository.findGerenteColaborador(id);
+    List<Colaborador> subordinados = repository.findSubordinadosColaborador(id);
+
+    return (new ColaboradorComHierarquias(colaborador.get(), gerente, subordinados));
   }
 
   public Optional<Colaborador> update(long id, ColaboradorDTO dto) {
