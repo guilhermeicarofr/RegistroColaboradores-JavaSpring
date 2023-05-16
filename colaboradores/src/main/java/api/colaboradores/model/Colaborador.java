@@ -1,7 +1,5 @@
 package api.colaboradores.model;
 
-import java.util.Date;
-
 import api.colaboradores.dto.ColaboradorDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,12 +13,12 @@ import lombok.Data;
 public class Colaborador {
   public Colaborador() {}
 
-  public Colaborador(ColaboradorDTO dto, Date admissao, Integer remuneracao) {
+  public Colaborador(ColaboradorDTO dto) {
     this.cpf = dto.cpf();
     this.nome = dto.nome();
-    this.admissao = admissao;
+    this.admissao = dto.admissao();
     this.funcao = dto.funcao();
-    this.remuneracao = remuneracao;
+    this.remuneracao = dto.remuneracao();
   }
 
   @Id
@@ -34,11 +32,11 @@ public class Colaborador {
   private String nome;
 
   @Column(nullable = false)
-  private Date admissao;
+  private String admissao;
 
   @Column(nullable = false)
   private String funcao;
 
   @Column(nullable = false)
-  private int remuneracao;
+  private String remuneracao;
 }

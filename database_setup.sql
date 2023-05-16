@@ -2,9 +2,9 @@ CREATE TABLE "colaborador" (
 	"id" serial NOT NULL,
 	"cpf" TEXT NOT NULL UNIQUE,
 	"nome" TEXT NOT NULL,
-	"admissao" DATE NOT NULL DEFAULT NOW(),
+	"admissao" TEXT NOT NULL,
 	"funcao" TEXT NOT NULL,
-	"remuneracao" bigint NOT NULL,
+	"remuneracao" TEXT NOT NULL,
 	CONSTRAINT "colaborador_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
