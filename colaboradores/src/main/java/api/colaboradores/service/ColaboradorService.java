@@ -1,8 +1,10 @@
 package api.colaboradores.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import api.colaboradores.dto.ColaboradorDTO;
@@ -13,9 +15,8 @@ import api.colaboradores.utils.MoneyUtils;
 
 @Service
 public class ColaboradorService {
-  @Autowired
-  private DateUtils dateUtil;
-  private MoneyUtils moneyUtil;
+  @Autowired private DateUtils dateUtil;
+  @Autowired private MoneyUtils moneyUtil;
 
   @Autowired
   private ColaboradorRepository repository;
@@ -27,5 +28,9 @@ public class ColaboradorService {
     Colaborador colaborador = new Colaborador(dto, convertedDateAdmissao, convertedValueRemuneracao);
 
     repository.save(colaborador);
+  }
+
+  public List<Colaborador> readByPage(Pageable pageable) {
+    return repository.findAllBy(pageable).getContent();
   }
 }
