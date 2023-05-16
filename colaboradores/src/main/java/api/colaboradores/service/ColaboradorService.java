@@ -33,4 +33,14 @@ public class ColaboradorService {
   public List<Colaborador> readByPage(Pageable pageable) {
     return repository.findAllBy(pageable).getContent();
   }
+
+  public void update(long id, ColaboradorDTO dto) {
+    repository.findById(id).map(colaborador -> {
+      colaborador.setNome(dto.nome());
+      //colaborador.setAdmissao(dto.admissao());
+      colaborador.setFuncao(dto.funcao());
+      //colaborador.setRemuneracao(dto.remuneracao());
+      return repository.save(colaborador);
+    });
+  }
 }

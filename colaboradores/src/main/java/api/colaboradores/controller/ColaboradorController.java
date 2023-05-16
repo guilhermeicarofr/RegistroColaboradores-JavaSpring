@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,5 +35,10 @@ public class ColaboradorController {
     int pageSize = 5;
     Pageable pageable = PageRequest.of(Integer.parseInt(page), pageSize);
     return service.readByPage(pageable);
+  }
+
+  @PutMapping("/{id}")
+  public void put(@PathVariable long id, @RequestBody @Valid ColaboradorDTO body) {
+    service.update(id, body);
   }
 }
