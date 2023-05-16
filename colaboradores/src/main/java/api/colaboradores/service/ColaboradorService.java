@@ -2,6 +2,7 @@ package api.colaboradores.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,10 @@ public class ColaboradorService {
 
   public List<Colaborador> readByPage(Pageable pageable) {
     return repository.findAllBy(pageable).getContent();
+  }
+
+  public Optional<Colaborador> readById(long id) {
+    return repository.findById(id);
   }
 
   public void update(long id, ColaboradorDTO dto) {

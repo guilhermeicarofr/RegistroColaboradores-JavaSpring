@@ -1,6 +1,7 @@
 package api.colaboradores.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +37,11 @@ public class ColaboradorController {
     int pageSize = 5;
     Pageable pageable = PageRequest.of(Integer.parseInt(page), pageSize);
     return service.readByPage(pageable);
+  }
+
+  @GetMapping("/{id}")
+  public Optional<Colaborador> getOne(@PathVariable long id) {
+    return service.readById(id);
   }
 
   @PutMapping("/{id}")
