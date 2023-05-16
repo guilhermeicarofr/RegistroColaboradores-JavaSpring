@@ -16,8 +16,14 @@ public class ColaboradorService {
   @Autowired
   private ColaboradorRepository repository;
 
+  @Autowired
+  private SubordinacaoService subordinacaoService;
+
   public void create(ColaboradorDTO dto) {
-    repository.save(new Colaborador(dto));
+    Colaborador colaborador = repository.save(new Colaborador(dto));
+
+    if(dto.gerente() != null) subordinacaoService.createRelacaoGerente(colaborador.getId(), dto);
+    subordinacaoService.createRelacaoSubordinados(colaborador.getId(), dto);
   }
 
   public List<Colaborador> readByPage(Pageable pageable) {
