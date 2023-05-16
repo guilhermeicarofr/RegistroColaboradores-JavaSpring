@@ -43,4 +43,8 @@ public class ColaboradorService {
       return repository.save(colaborador);
     });
   }
+
+  public void delete(long id) {
+    repository.deleteById(id);
+  }
 }
