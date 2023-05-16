@@ -13,6 +13,6 @@ public record ColaboradorDTO(
   @NotBlank @Pattern(regexp = "[0-9]{2}/[0-9]{2}/[0-9]{4}") String admissao,
   @NotBlank String funcao,
   @NotNull @Pattern(regexp = "[0-9]+,[0-9]{2}") String remuneracao,
-  @Nullable long gerente,
+  @Nullable Long gerente,
   @NotNull List<Long> subordinados
 ) {}

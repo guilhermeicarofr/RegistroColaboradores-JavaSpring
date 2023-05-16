@@ -1,31 +1,36 @@
 package api.colaboradores.model;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinTable;
+import lombok.Data;
 
+@Data
+@Entity
 public class Subordinacao {
   public Subordinacao() {}
 
-  public Subordinacao(int gerente, int subordinado) {
-
+  public Subordinacao(long gerente, long subordinado) {
+    this.gerente = gerente;
+    this.subordinado = subordinado;
   }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @Column(nullable = false)
-  @ManyToOne
-  @JoinColumn(name = "gerente", referencedColumnName = "id")
-  private int gerente;
+  @JoinTable(
+    name = "colaborador",
+    joinColumns = @JoinColumn(name = "id"),
+    inverseJoinColumns = @JoinColumn(name = "gerente")
+  ) private long gerente;
 
-  @Column(nullable = false, unique = true)
-  @OneToMany
-  @JoinColumn(name = "subordinado", referencedColumnName = "id")
-  private int subordinado;
+  @JoinTable(
+    name = "colaborador",
+    joinColumns = @JoinColumn(name = "id"),
+    inverseJoinColumns = @JoinColumn(name = "subordinado")
+  ) private long subordinado;
 }
