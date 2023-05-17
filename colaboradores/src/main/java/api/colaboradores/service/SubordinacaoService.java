@@ -18,15 +18,18 @@ public class SubordinacaoService {
     repository.save(new Subordinacao(dto.gerente(), id));
   }
 
-  public void createRelacaoSubordinados(long id, ColaboradorDTO dto) {
-    for(int i=0; i<dto.subordinados().size(); i++) {
-      repository.save(new Subordinacao(id, dto.subordinados().get(i)));
+  public void createRelacaoSubordinados(long id, List<Long> subordinados) {
+    for(int i=0; i<subordinados.size(); i++) {
+      repository.save(new Subordinacao(id, subordinados.get(i)));
     }
   }
 
   public void deleteRelacaoSubordinado(List<Long> subordinados) {
     for(int i=0; i<subordinados.size(); i++) {
-      repository.deleteBySubordinado(subordinados.get(i));
+      List<Subordinacao> list = repository.findBySubordinado(subordinados.get(i));
+      for(int j=0; j<list.size(); j++) {
+        repository.delete(list.get(j));
+      }
     }
   }
 }
