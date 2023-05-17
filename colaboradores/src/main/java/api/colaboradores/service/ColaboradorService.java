@@ -1,5 +1,6 @@
 package api.colaboradores.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,89 @@ public class ColaboradorService {
 
   public void create(ColaboradorDTO dto) {
     if(cpfInUse(dto.cpf())) throw new Error("CPF em uso");
+    validateColaborador(dto);
 
+    Colaborador colaborador = repository.save(new Colaborador(dto));
+    if(dto.gerente() != null) subordinacaoService.createRelacaoGerente(colaborador.getId(), dto);
+    subordinacaoService.deleteRelacaoSubordinado(dto.subordinados());
+    subordinacaoService.createRelacaoSubordinados(colaborador.getId(), dto.subordinados());
+  }
+
+  public List<Colaborador> readByPage(Pageable pageable) {
+    return repository.findAllBy(pageable).getContent();
+  }
+
+  public ColaboradorComHierarquias readById(long id) {
+    Optional<Colaborador> colaborador = repository.findById(id);
+    if(!colaborador.isPresent()) throw new Error("Colaborador não encontrado");
+
+    Optional<Colaborador> gerente = repository.findGerenteColaborador(id);
+    List<Colaborador> subordinados = repository.findSubordinadosColaborador(id);
+
+    return (new ColaboradorComHierarquias(colaborador.get(), gerente, subordinados));
+  }
+
+  public ColaboradorComHierarquias update(long id, ColaboradorDTO dto) {
+    ColaboradorComHierarquias target = readById(id);
+    validateColaborador(dto);
+
+    repository.findById(id).map(c -> {
+      c.setNome(dto.nome());
+      c.setAdmissao(dto.admissao());
+      c.setFuncao(dto.funcao());
+      c.setRemuneracao(dto.remuneracao());
+      return repository.save(c);
+    });
+
+    List<Long> subordinadoList = new ArrayList<>();
+    subordinadoList.add(id);
+    subordinacaoService.deleteRelacaoSubordinado(subordinadoList);
+    if(dto.gerente() != null) subordinacaoService.createRelacaoGerente(id, dto);
+    
+    subordinacaoService.deleteRelacaoSubordinado(mapColaboradoresId(target.getSubordinados()));
+    if(target.getGerente().isEmpty() && target.getColaborador().getFuncao().equals("presidente")) {
+      subordinacaoService.createRelacaoSubordinados(id, mapColaboradoresId(target.getSubordinados()));
+    } else {
+      subordinacaoService.createRelacaoSubordinados(target.getGerente().get().getId(), mapColaboradoresId(target.getSubordinados()));
+    }
+
+    subordinacaoService.deleteRelacaoSubordinado(dto.subordinados());
+    subordinacaoService.createRelacaoSubordinados(id, dto.subordinados());
+
+    return readById(id);
+  }
+
+  public void delete(long id) {    
+    ColaboradorComHierarquias target = readById(id);
+
+    List<Long> subordinadoList = new ArrayList<>();
+    subordinadoList.add(id);
+    subordinacaoService.deleteRelacaoSubordinado(subordinadoList);
+  
+    subordinacaoService.deleteRelacaoSubordinado(mapColaboradoresId(target.getSubordinados()));
+    if(target.getGerente().isPresent()) {
+      subordinacaoService.createRelacaoSubordinados(target.getGerente().get().getId(), mapColaboradoresId(target.getSubordinados()));
+    } else {
+      subordinacaoService.createRelacaoSubordinados(target.getSubordinados().get(0).getId(), mapColaboradoresId(target.getSubordinados()));
+      List<Long> substitutoList = new ArrayList<>();
+      substitutoList.add(target.getSubordinados().get(0).getId());
+      subordinacaoService.deleteRelacaoSubordinado(substitutoList);
+    }
+
+    repository.deleteById(id);
+  }
+
+  private boolean cpfInUse(String cpf) {
+    List<Colaborador> list = repository.findByCpf(cpf);
+    return (!list.isEmpty());
+  }
+
+  private boolean presidenteExists() {
+    List<Colaborador> list = repository.findByFuncao("presidente");
+    return (!list.isEmpty());
+  }
+
+  private void validateColaborador(ColaboradorDTO dto) {
     //verificar se presidente já existe se funcao = presidente
     //verificar se gerente é null caso funcao = presidente
     if(dto.funcao().equals("presidente")) {
@@ -48,67 +131,13 @@ public class ColaboradorService {
         throw new Error("Funcao presidente não pode ser um subordinado");
       }
     }
-
-    Colaborador colaborador = repository.save(new Colaborador(dto));
-    if(dto.gerente() != null) subordinacaoService.createRelacaoGerente(colaborador.getId(), dto);
-
-    //deletar relacao de gerente dos subordinados informados
-    subordinacaoService.deleteRelacaoSubordinado(dto.subordinados());
-    //criar relacao do novo gerente criado para os subordinados    
-    subordinacaoService.createRelacaoSubordinados(colaborador.getId(), dto);
   }
 
-  public List<Colaborador> readByPage(Pageable pageable) {
-    return repository.findAllBy(pageable).getContent();
-  }
-
-  public ColaboradorComHierarquias readById(long id) {
-    Optional<Colaborador> colaborador = repository.findById(id);
-    if(!colaborador.isPresent()) throw new Error("Colaborador não encontrado");
-
-    Optional<Colaborador> gerente = repository.findGerenteColaborador(id);
-    List<Colaborador> subordinados = repository.findSubordinadosColaborador(id);
-
-    return (new ColaboradorComHierarquias(colaborador.get(), gerente, subordinados));
-  }
-
-  public Optional<Colaborador> update(long id, ColaboradorDTO dto) {
-    //verificar se o id editado existe
-
-    //verificar se presidente já existe se funcao = presidente
-    //verificar se gerente é null caso funcao = presidente
-
-    //verificar se é presidente para autorizar gerente null
-    //verificar se id gerente existe
-
-    //verificar se os ids de subordinados já existem
-    //verificar se o presidente não é um dos subordinados
-    //alterar ou criar gerente dos subordinados para o user criado
-
-    return repository.findById(id).map(colaborador -> {
-      colaborador.setNome(dto.nome());
-      colaborador.setAdmissao(dto.admissao());
-      colaborador.setFuncao(dto.funcao());
-      colaborador.setRemuneracao(dto.remuneracao());
-      return repository.save(colaborador);
-    });
-  }
-
-  public void delete(long id) {
-    //verificar se o id existe e retornar erro
-    //verificar todas as relacoes de subordinacao que existirem com o id
-    //subordinados - editar as relacoes para colocar o gerente do Colaborador apagado no lugar
-    
-    repository.deleteById(id);
-  }
-
-  private boolean cpfInUse(String cpf) {
-    List<Colaborador> list = repository.findByCpf(cpf);
-    return (!list.isEmpty());
-  }
-
-  private boolean presidenteExists() {
-    List<Colaborador> list = repository.findByFuncao("presidente");
-    return (!list.isEmpty());
+  private List<Long> mapColaboradoresId(List<Colaborador> colaboradores) {
+    List<Long> ids = new ArrayList<>();
+    for(int i=0; i<colaboradores.size(); i++) {
+      ids.add(colaboradores.get(i).getId());
+    }
+    return ids;
   }
 }
