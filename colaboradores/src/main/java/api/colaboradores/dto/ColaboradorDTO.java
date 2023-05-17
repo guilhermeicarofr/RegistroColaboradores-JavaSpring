@@ -8,11 +8,28 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record ColaboradorDTO(
-  @NotBlank @Pattern(regexp = "[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}") String cpf,
-  @NotBlank String nome,
-  @NotBlank @Pattern(regexp = "[0-9]{2}/[0-9]{2}/[0-9]{4}") String admissao,
-  @NotBlank @Pattern(regexp = "[a-z]+") String funcao,
-  @NotNull @Pattern(regexp = "[0-9]+,[0-9]{2}") String remuneracao,
-  @Nullable Long gerente,
-  @NotNull List<Long> subordinados
+  @NotBlank
+  @Pattern(regexp = "[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}", message = "CPF no padrão 123.456.789-10")
+  String cpf,
+  
+  @NotBlank(message = "Nome não pode estar em branco")
+  String nome,
+
+  @NotBlank
+  @Pattern(regexp = "[0-9]{2}/[0-9]{2}/[0-9]{4}", message = "Admissão no formato dd/mm/aaaa")
+  String admissao,
+
+  @NotBlank
+  @Pattern(regexp = "[a-z]+", message = "Função deve possuir apenas caracteres minúsculos")
+  String funcao,
+
+  @NotNull
+  @Pattern(regexp = "[0-9]+,[0-9]{2}", message = "Remuneração em formato 0,00")
+  String remuneracao,
+
+  @Nullable
+  Long gerente,
+
+  @NotNull
+  List<Long> subordinados
 ) {}
