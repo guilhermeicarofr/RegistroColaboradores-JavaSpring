@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: colaboradores
+    volumes:
+      - ./db/docker:/docker-entrypoint-initdb.d
+
+  app:
+      build:
+        context: ./colaboradores
+        dockerfile: ./Dockerfile
+      ports:
+        - 8080:8080
+      depends_on:
+        - db
