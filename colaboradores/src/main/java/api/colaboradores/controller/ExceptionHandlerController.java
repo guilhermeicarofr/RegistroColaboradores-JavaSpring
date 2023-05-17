@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -46,5 +47,10 @@ public class ExceptionHandlerController {
     }
 
     return ResponseEntity.badRequest().body(validationErrors);
+  }
+
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public ResponseEntity<String> handleParamException(MissingServletRequestParameterException e) {
+    return ResponseEntity.badRequest().body(e.getMessage());
   }
 }
