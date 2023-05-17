@@ -16,6 +16,8 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long> 
 
   List<Colaborador> findByCpf(String cpf);
 
+  List<Colaborador> findByFuncao(String funcao);
+
   @Query(
     value = "SELECT c.id, c.cpf, c.nome, c.admissao, c.funcao, c.remuneracao FROM subordinacao s JOIN colaborador c ON s.gerente = c.id WHERE s.subordinado = :id LIMIT 1",
     nativeQuery = true)
