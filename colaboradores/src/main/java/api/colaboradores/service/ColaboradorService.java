@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import api.colaboradores.dto.ColaboradorDTO;
+import api.colaboradores.exceptions.AnoParamException;
 import api.colaboradores.exceptions.ColaboradorException;
 import api.colaboradores.exceptions.CpfException;
 import api.colaboradores.exceptions.HierarquiaException;
@@ -36,7 +37,7 @@ public class ColaboradorService {
     return colaborador;
   }
 
-  public List<Colaborador> readByPage(Pageable pageable) {
+  public List<Colaborador> readPage(Pageable pageable) {
     return repository.findAllBy(pageable).getContent();
   }
 
@@ -98,6 +99,17 @@ public class ColaboradorService {
     }
 
     repository.deleteById(id);
+  }
+
+  public List<Colaborador> readPageByAdmissao(String ano, Pageable pageable) {
+    if(ano.length() != 4) throw new AnoParamException();
+    try {
+      Integer.parseInt(ano);
+    } catch (NumberFormatException e) {
+      throw new AnoParamException();
+    }
+
+    return repository.findByAnoAdmissao(ano, pageable).getContent();
   }
 
   private boolean cpfInUse(String cpf) {

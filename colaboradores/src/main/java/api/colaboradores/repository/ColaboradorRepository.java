@@ -27,4 +27,9 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long> 
     value = "SELECT c.id, c.cpf, c.nome, c.admissao, c.funcao, c.remuneracao FROM subordinacao s JOIN colaborador c ON s.subordinado = c.id WHERE s.gerente = :id",
     nativeQuery = true)
   List<Colaborador> findSubordinadosColaborador(@Param("id") long id);
+
+  @Query(
+    value = "SELECT c.id, c.cpf, c.nome, c.admissao, c.funcao, c.remuneracao FROM colaborador c WHERE SUBSTRING(c.admissao, LENGTH(c.admissao)-3) LIKE %?1",
+    nativeQuery = true)
+  Page<Colaborador> findByAnoAdmissao(String ano, Pageable pageable);
 }

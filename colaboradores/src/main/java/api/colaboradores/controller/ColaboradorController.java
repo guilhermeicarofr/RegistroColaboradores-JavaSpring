@@ -40,7 +40,7 @@ public class ColaboradorController {
   public List<Colaborador> getList(@RequestParam("page") String page) {
     int pageSize = 5;
     Pageable pageable = PageRequest.of(Integer.parseInt(page), pageSize);
-    return service.readByPage(pageable);
+    return service.readPage(pageable);
   }
 
   @GetMapping("/{id}")
@@ -59,5 +59,13 @@ public class ColaboradorController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable long id) {
     service.delete(id);
+  }
+
+  @GetMapping("/admissao/{ano}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<Colaborador> getListByAdmissao(@PathVariable String ano, @RequestParam("page") String page) {
+    int pageSize = 5;
+    Pageable pageable = PageRequest.of(Integer.parseInt(page), pageSize);
+    return service.readPageByAdmissao(ano, pageable);
   }
 }

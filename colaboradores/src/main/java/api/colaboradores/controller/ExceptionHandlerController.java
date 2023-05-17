@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import api.colaboradores.exceptions.AnoParamException;
 import api.colaboradores.exceptions.ColaboradorException;
 import api.colaboradores.exceptions.CpfException;
 import api.colaboradores.exceptions.HierarquiaException;
@@ -31,6 +33,11 @@ public class ExceptionHandlerController {
     return ResponseEntity.status(HierarquiaException.STATUS).body(e.message);
   }
 
+  @ExceptionHandler(AnoParamException.class)
+  public ResponseEntity<String> handleAnoParamException(AnoParamException e) {
+    return ResponseEntity.status(AnoParamException.STATUS).body(AnoParamException.MESSAGE);
+  }
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<List<String>> handleValidationException(MethodArgumentNotValidException e) {
     List<String> validationErrors = new ArrayList<>();
@@ -40,5 +47,10 @@ public class ExceptionHandlerController {
     }
 
     return ResponseEntity.badRequest().body(validationErrors);
+  }
+
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public ResponseEntity<String> handleParamException(MissingServletRequestParameterException e) {
+    return ResponseEntity.badRequest().body(e.getMessage());
   }
 }
