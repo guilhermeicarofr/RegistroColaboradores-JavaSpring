@@ -21,7 +21,7 @@ public class ColaboradorService {
   @Autowired
   private SubordinacaoService subordinacaoService;
 
-  public void create(ColaboradorDTO dto) {
+  public Colaborador create(ColaboradorDTO dto) {
     if(cpfInUse(dto.cpf())) throw new Error("CPF em uso");
     validateColaborador(dto);
 
@@ -29,6 +29,8 @@ public class ColaboradorService {
     if(dto.gerente() != null) subordinacaoService.createRelacaoGerente(colaborador.getId(), dto);
     subordinacaoService.deleteRelacaoSubordinado(dto.subordinados());
     subordinacaoService.createRelacaoSubordinados(colaborador.getId(), dto.subordinados());
+
+    return colaborador;
   }
 
   public List<Colaborador> readByPage(Pageable pageable) {
