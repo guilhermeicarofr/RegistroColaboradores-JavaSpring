@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import api.colaboradores.exceptions.AnoParamException;
 import api.colaboradores.exceptions.ColaboradorException;
 import api.colaboradores.exceptions.CpfException;
 import api.colaboradores.exceptions.HierarquiaException;
@@ -29,6 +30,11 @@ public class ExceptionHandlerController {
   @ExceptionHandler(HierarquiaException.class)
   public ResponseEntity<String> handleHierarquiaException(HierarquiaException e) {
     return ResponseEntity.status(HierarquiaException.STATUS).body(e.message);
+  }
+
+  @ExceptionHandler(AnoParamException.class)
+  public ResponseEntity<String> handleAnoParamException(AnoParamException e) {
+    return ResponseEntity.status(AnoParamException.STATUS).body(AnoParamException.MESSAGE);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
