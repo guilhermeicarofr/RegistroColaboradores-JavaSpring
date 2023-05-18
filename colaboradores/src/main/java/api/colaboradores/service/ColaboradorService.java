@@ -123,23 +123,17 @@ public class ColaboradorService {
   }
 
   private void validateColaborador(ColaboradorDTO dto) {
-    //verificar se presidente já existe se funcao = presidente
-    //verificar se gerente é null caso funcao = presidente
     if(dto.funcao().equals("presidente")) {
       if(presidenteExists()) throw new HierarquiaException("Presidente já é um cargo ocupado");
       if(dto.gerente() != null) throw new HierarquiaException("A função presidente não pode ter um gerente");
     }
 
-    //verificar se é presidente para autorizar gerente null
     if(dto.gerente() == null && !dto.funcao().equals("presidente")) {
       throw new HierarquiaException("Apenas o presidente pode não possuir gerente");
     }
-    //verificar se id gerente existe
+
     if(dto.gerente() != null) readById(dto.gerente());
 
-    //verificar se os ids de subordinados já existem
-    //verificar se o presidente não é um dos subordinados
-    //verificar se gerente não está entre os subordinados
     for(int i=0; i<dto.subordinados().size(); i++) {
       if(dto.subordinados().get(i).equals(dto.gerente())) throw new HierarquiaException("Gerente não pode estar entre os subordinados");
 
