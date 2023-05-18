@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+//Entidade Colaborador do banco de dados
 @Data
 @Entity
 public class Colaborador {

@@ -10,6 +10,7 @@ import api.colaboradores.dto.ResponsavelHierarquiaDTO;
 import api.colaboradores.exceptions.HierarquiaException;
 import api.colaboradores.model.ColaboradorComHierarquias;
 
+//Encontra o colaborador responsável na hierarquia por dois colaboradores informados
 @Service
 public class HierarquiaService {
   @Autowired
@@ -30,6 +31,7 @@ public class HierarquiaService {
     //Verificando se tem algum gerente em comum com o mapa de hierarquia do colaborador 1
     ColaboradorComHierarquias colaborador2 = colaboradorService.readById(dto.colaborador2());
     while(colaborador2.getGerente().isPresent()) {
+      //Se encontrado retorna os dados do responsavel pelos dois colaboradores
       if(hierarquia1.containsKey(colaborador2.getGerente().get().getId())) {
         return colaboradorService.readById(colaborador2.getGerente().get().getId());
       }    
