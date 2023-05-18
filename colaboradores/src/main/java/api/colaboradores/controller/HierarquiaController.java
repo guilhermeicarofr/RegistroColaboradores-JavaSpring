@@ -13,7 +13,6 @@ import api.colaboradores.model.ColaboradorComHierarquias;
 import api.colaboradores.service.HierarquiaService;
 import jakarta.validation.Valid;
 
-//Retorna o colaborador responsável na hierarquia pelos dois colaboradores informados
 @RestController
 @RequestMapping("/hierarquia")
 public class HierarquiaController {

@@ -29,14 +29,12 @@ public class ColaboradorController {
   @Autowired
   private ColaboradorService service;
 
-  //Cria um colaborador já validado de acordo com o DTO
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Colaborador post(@RequestBody @Valid ColaboradorDTO body) {
     return service.create(body);
   }
 
-  //Lista os colaboradores com paginação
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<Colaborador> getList(@RequestParam("page") String page) {
@@ -45,28 +43,24 @@ public class ColaboradorController {
     return service.readPage(pageable);
   }
 
-  //Encontra um colaborador pelo ID informado com dados do seu Gerente e seus subordinados
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public ColaboradorComHierarquias getOne(@PathVariable long id) {
     return service.readById(id);
   }
 
-  //Edita um colaborador validado pelo DTO 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public void put(@PathVariable long id, @RequestBody @Valid ColaboradorDTO body) {
     service.update(id, body);
   }
 
-  //Deleta um colaborador
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable long id) {
     service.delete(id);
   }
 
-  //Retorna os colaboradores contratados no ano informado, com paginação
   @GetMapping("/admissao/{ano}")
   @ResponseStatus(HttpStatus.OK)
   public List<Colaborador> getListByAdmissao(@PathVariable String ano, @RequestParam("page") String page) {

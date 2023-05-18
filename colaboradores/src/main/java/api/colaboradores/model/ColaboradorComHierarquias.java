@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import lombok.Data;
 
-//Classe que une um Colaborador aos dados de Gerente(Colaborador) e Subordinados(Lista de Colaboradores)
 @Data
 public class ColaboradorComHierarquias {
   public ColaboradorComHierarquias() {}

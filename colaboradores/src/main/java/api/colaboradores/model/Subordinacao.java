@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import lombok.Data;
 
-//Entidade Subordinacao do banco de dados, que dita a relacao hierarquica entre dois colaboradores
 @Data
 @Entity
 public class Subordinacao {
