@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+//Faz a validação do input de POST e PUT de Colaborador com id gerente e lista de ids subordinados
 public record ColaboradorDTO(
   @NotBlank
   @Pattern(regexp = "[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}", message = "CPF no padrão 123.456.789-10")

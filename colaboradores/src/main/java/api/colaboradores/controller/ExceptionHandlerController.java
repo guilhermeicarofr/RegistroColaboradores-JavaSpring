@@ -15,9 +15,9 @@ import api.colaboradores.exceptions.ColaboradorException;
 import api.colaboradores.exceptions.CpfException;
 import api.colaboradores.exceptions.HierarquiaException;
 
+//Lida com as Exceptions emitidas pela aplicação através de throw, regras de negócio e validação
 @ControllerAdvice
 public class ExceptionHandlerController {
-  
   @ExceptionHandler(CpfException.class)
   public ResponseEntity<String> handleCpfException(CpfException e) {
     return ResponseEntity.status(CpfException.STATUS).body(CpfException.MESSAGE);
@@ -38,6 +38,7 @@ public class ExceptionHandlerController {
     return ResponseEntity.status(AnoParamException.STATUS).body(AnoParamException.MESSAGE);
   }
 
+  //Lida com as Exceptions lançadas pela annotation @Valid e regras dos DTOs
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<List<String>> handleValidationException(MethodArgumentNotValidException e) {
     List<String> validationErrors = new ArrayList<>();
@@ -49,6 +50,7 @@ public class ExceptionHandlerController {
     return ResponseEntity.badRequest().body(validationErrors);
   }
 
+  //Lida com as Exceptions lançadas pela falta de dados na annotation @RequestParam
   @ExceptionHandler(MissingServletRequestParameterException.class)
   public ResponseEntity<String> handleParamException(MissingServletRequestParameterException e) {
     return ResponseEntity.badRequest().body(e.getMessage());
