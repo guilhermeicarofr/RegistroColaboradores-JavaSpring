@@ -24,7 +24,7 @@ git clone "https://github.com/guilhermeicarofr/RegistroColaboradores-JavaSpring"
 ```
 sudo docker-compose up
 ```
-- A aplicação estará disponível no endpoint http://localhost:8080/
+- A aplicação estará disponível no endpoint http://localhost:8080/ já com alguns dados no banco
 
 ### Opção2 - Rodar localmente (sem Docker):
 - Necessária instalação do banco PosgreSQL
@@ -32,12 +32,14 @@ sudo docker-compose up
 - Porta padrão do Postgres localhost:5432
 
 #### Configurando o banco:
-- Criar o DATABASE "colaboradores" no banco Postgres através do CLI psql ou algum SGBD(Ex: DBeaver)
-- Executar o script SQL contido na pasta /db no arquivo:
+- Usar o arquivo database_dump.sql ou database_dump.dump na pasta /db usando pg_restore para restaurar o banco de dados já com dados iniciais.
+- Para inicializar o banco vazio:
+  - Criar o DATABASE "colaboradores" no banco Postgres através do CLI psql ou algum SGBD(Ex: DBeaver)
+  - Executar o script SQL contido na pasta /db no arquivo:
 ```
 database_scheme.sql
 ```
-- Dessa forma temos o banco Postgres "colaboradores" configurado com suas tabelas
+- Dessa forma temos o banco Postgres "colaboradores" configurado com suas tabelas mas sem dados
 
 #### Executando a aplicação:
 - O projeto compilado .jar está disponível na pasta /colaboradores/jar para execução
@@ -217,6 +219,7 @@ ResponsavelHierarquiaInput: {
 - Com o banco de dados de pé, a imagem da aplicação Spring é contruída através do arquivo colaboradores/Dockerfile, usando um arquivo da aplicação pre-compilado com maven para executar no container Docker com Java a aplicação e a conexão com o banco ocorre no endpoint db:5432
 - Ao parar e executar novamente os containers os dados do banco persistem devido ao uso de volumes, exceto se forem apagados
 - Desta forma é possível ter a aplicação e banco de dados rodando sem que seja necessário possuir nenhuma versão de Java ou Postgres instalado na máquina
+- Para fins didáticos a inicialização via Docker-Compose restaura um banco inicial já com dados de forma a tornar mais simples pro usuário testar da aplicação
 
 #
 
@@ -253,3 +256,4 @@ ResponsavelHierarquiaInput: {
   - Em caso de remover o presidente, todos os seus subordinados diretos passarão a ser subordinados ao primeiro Colaborador da lista de subordinados. O substituto não se torna o presidente, mas passa a não ter um gerente acima. Para que seja o presidente deve ter sua função alterada na edição
 
 #
+
